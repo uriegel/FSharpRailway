@@ -18,7 +18,7 @@ module Result =
     /// <param name="switch2">function with one input parameter 'b returning a Result&lt;'c&gt;</param>
     /// <param name="x">input parameter 'a</param>
     /// <returns>function with one input parameter 'a returning a Result&lt;'c&gt;</returns>
-    let (>=>!) switch1 switch2 x =
+    let (>=>) switch1 switch2 x =
         match switch1 x with
         | Ok s -> switch2 s
         | Err e   -> Err e
@@ -31,7 +31,7 @@ module Result =
     /// <returns>Result&lt;'b&gt;</returns>
     let switch f x = f x |> Ok 
 
-    let exceptionToResponse func =
+    let exceptionToResult func =
         try
             Ok(func ()) 
         with
