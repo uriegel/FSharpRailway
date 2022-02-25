@@ -4,14 +4,24 @@ module Option =
     /// <summary>
     /// Fish operator (Kleisli Category) for composing functions returning Option values (Railway Oriented Programming).
     /// </summary>
-    /// <param name="switch1">function with one input parameter 'a returning an option&lt;'b&gt;</param>
-    /// <param name="switch2">function with one input parameter 'b returning an option&lt;'c&gt;</param>
+    /// <param name="f1">function with one input parameter 'a returning an option&lt;'b&gt;</param>
+    /// <param name="f2">function with one input parameter 'b returning an option&lt;'c&gt;</param>
     /// <param name="x">input parameter 'a</param>
     /// <returns>function with one input parameter 'a returning an option&lt;'c&gt;</returns>
-    let (>=>) switch1 switch2 x =
-        match switch1 x with
-        | Some s -> switch2 s
+    let (>=>) f1 f2 x =
+        match f1 x with
+        | Some s -> f2 s
         | None   -> None
+
+    /// <summary>
+    /// Maps the Some value by  calling function f, leaving the None value
+    /// <param name="f">function with one input parameter 'a returning 'b</param>
+    /// <param name="x">input parameter option&lt;'a&gt;</param>
+    /// <returns>option&lt;'b&gt;</returns>
+    let map f x = 
+        match x with
+        | Some y  -> Some <| f y
+        | None -> None
 
     /// <summary>
     /// Helper function for composing functions with Fish operator with option (Railway Oriented Programming)
@@ -40,3 +50,33 @@ module Option =
             | _                    -> None
         with
         | _ -> None
+
+    module Asnyc =
+
+        /// <summary>
+        /// Fish operator (Kleisli Category) for composing functions returning Option values (Railway Oriented Programming).
+        /// Asynchronous version
+        /// </summary>
+        /// <param name="f1">function with one input parameter 'a returning an option&lt;'b&gt;</param>
+        /// <param name="f2">function with one input parameter 'b returning an option&lt;'c&gt;</param>
+        /// <param name="x">input parameter 'a</param>
+        /// <returns>function with one input parameter 'a returning an option&lt;'c&gt;</returns>
+        let (>=>) f1 f2 x = async {
+            match! f1 x with
+            | Some s -> return! f2 s
+            | None   -> return None
+        }
+
+        /// <summary>
+        /// Maps the Some value by  calling function f, leaving the None value
+        /// Asynchronous version
+        /// <param name="f">function with one input parameter 'a returning 'b</param>
+        /// <param name="x">input parameter option&lt;'a&gt;</param>
+        /// <returns>option&lt;'b&gt;</returns>
+        let map f x = async {
+            match! x with
+            | Some y ->
+                let! s = f y
+                return Some s
+            | None -> return None
+        }
