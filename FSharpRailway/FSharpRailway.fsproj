@@ -1,12 +1,44 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <OutputType>dll</OutputType>
+    <AssemblyName>FSharpRailway</AssemblyName>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.0.2</Version>
+    <FileVersion>0.0.2</FileVersion>
+    <AssemblyVersion>0.0.2.0</AssemblyVersion>
+    <Authors>Uwe Riegel</Authors>
+    <Company>Uwe Riegel</Company>
+    <Copyright>Uwe Riegel</Copyright>
+    <Description>Railway oriented programming tools and operators for F#</Description>
+    <Summary>Railway oriented programming tools and operators for F#</Summary>
+    <PackageReleaseNotes>Project just started, Result added</PackageReleaseNotes>
+    <PackageLicenseUrl>
+    </PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/uriegel/FSharpRailway</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryURL>https://github.com/uriegel/FSharpRailway</RepositoryURL>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>FSharp;F#;.NET;Functional</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>FS0067</NoWarn>
   </PropertyGroup>
-
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Library.fs" />
+    <Compile Include="Result.fs" />
     <Compile Include="Option.fs" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>
+      </PackagePath>
+    </None>
+  </ItemGroup>
 </Project>
