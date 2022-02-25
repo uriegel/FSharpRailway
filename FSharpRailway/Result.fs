@@ -3,15 +3,6 @@ namespace FSharpRailway
 module Result =
 
     /// <summary>
-    /// Functional alternative to exception handling.
-    /// Instead of exception handling a Result object is used (Railway Oriented Programming).
-    /// There is an option of two possible values: Ok&lt;'a&gt; and Err&lt;Exception&gt;
-    /// </summary>
-    type Result<'a, 'e> = 
-        | Ok  of 'a
-        | Err of 'e
-
-    /// <summary>
     /// Fish operator (Kleisli Category) for composing functions returning Result values (Railway Oriented Programming).
     /// </summary>
     /// <param name="f1">function with one input parameter 'a returning a Result&lt;'b&gt;</param>
@@ -20,8 +11,8 @@ module Result =
     /// <returns>function with one input parameter 'a returning a Result&lt;'c&gt;</returns>
     let (>=>) f1 f2 x =
         match f1 x with
-        | Ok s -> f2 s
-        | Err e   -> Err e
+        | Ok s    -> f2 s
+        | Error e -> Error e
 
     /// <summary>
     /// Maps the Ok value by  calling function f, leaving the Err value
@@ -30,8 +21,8 @@ module Result =
     /// <returns>Result&lt;'b&gt;</returns>
     let map f x = 
         match x with
-        | Ok y  -> Ok <| f y
-        | Err e -> Err e
+        | Ok y    -> Ok <| f y
+        | Error e -> Error e
 
     /// <summary>
     /// Helper function for composing functions with Fish operator with Result values (Railway Oriented Programming)
@@ -45,8 +36,8 @@ module Result =
         try
             Ok(func ()) 
         with
-        | :? System.Exception as e -> Err(e)
-        | _ as e -> Err(System.Exception(e.ToString()))
+        | :? System.Exception as e -> Error(e)
+        | _ as e                   -> Error(System.Exception(e.ToString()))
 
     module Asnyc =
 
@@ -60,8 +51,8 @@ module Result =
         /// <returns>function with one input parameter 'a returning a Result&lt;'c&gt;</returns>
         let (>=>) f1 f2 x = async {
             match! f1 x with
-            | Ok s  -> return! f2 s
-            | Err e -> return Err e
+            | Ok s    -> return! f2 s
+            | Error e -> return Error e
         }
 
         /// <summary>
@@ -75,5 +66,5 @@ module Result =
             | Ok y ->
                 let! s = f y
                 return Ok s
-            | Err e -> return Err e
+            | Error e -> return Error e
         }

@@ -4,15 +4,15 @@
     <AssemblyName>FSharpRailway</AssemblyName>
     <OutputType>Library</OutputType>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.1.0</Version>
-    <FileVersion>0.1.0</FileVersion>
-    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <Version>0.2.0</Version>
+    <FileVersion>0.2.0</FileVersion>
+    <AssemblyVersion>0.2.0.0</AssemblyVersion>
     <Authors>Uwe Riegel</Authors>
     <Company>Uwe Riegel</Company>
     <Copyright>Uwe Riegel</Copyright>
     <Description>Railway oriented programming tools and operators for F#</Description>
     <Summary>Railway oriented programming tools and operators for F#</Summary>
-    <PackageReleaseNotes>Asynchronous versions, map</PackageReleaseNotes>
+    <PackageReleaseNotes>Replacing custom Result with FSharp builtin Result</PackageReleaseNotes>
     <PackageLicenseUrl>
     </PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/uriegel/FSharpRailway</PackageProjectUrl>
