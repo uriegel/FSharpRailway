@@ -32,12 +32,17 @@ module Result =
     /// <returns>Result&lt;'b&gt;</returns>
     let switch f x = f x |> Ok 
 
+    /// <summary>
+    /// Monad which takes a function which can throw an exception. The exception 
+    /// or the result is wrapped in an Result<'a, exn>
+    /// </summary>
+    /// <param name="f">function with no input parameter () returning 'a</param>
+    /// <returns>Result&lt;'a, exn&gt;</returns>
     let exceptionToResult func =
         try
             Ok(func ()) 
         with
-        | :? System.Exception as e -> Error(e)
-        | _ as e                   -> Error(System.Exception(e.ToString()))
+        | e -> Error e
 
     module Asnyc =
 

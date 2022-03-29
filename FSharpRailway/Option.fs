@@ -36,6 +36,15 @@ module Option =
         | Some a, Some b -> Some (a, b)
         | _              -> None
 
+    /// <summary>
+    /// Maps the Error value of a Result to an option, discarding the Ok value
+    /// </summary>
+    /// <param name="result">Result from which the error should be taken</param>
+    let mapError result = 
+        match result with
+        | Ok    _ -> None
+        | Error u -> Some u
+
     let withInputVar switch x = 
         match switch x with
         | Some s -> Some(x, s)
@@ -50,6 +59,16 @@ module Option =
             | _                    -> None
         with
         | _ -> None
+
+    /// <summary>
+    /// Raising an exception from a Result containing an error value, 
+    /// otherwise returning the Ok value
+    /// </summary>
+    /// <param name="result">Result from which the error should be thrown as exception</param>
+    let throw result = 
+        match result with
+        | Ok value  -> value
+        | Error exn -> raise exn
 
     module Asnyc =
 
