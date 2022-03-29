@@ -40,7 +40,7 @@ module Option =
     /// Maps the Error value of a Result to an option, discarding the Ok value
     /// </summary>
     /// <param name="result">Result from which the error should be taken</param>
-    let mapError result = 
+    let mapOnlyError result = 
         match result with
         | Ok    _ -> None
         | Error u -> Some u
