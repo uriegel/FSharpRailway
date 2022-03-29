@@ -44,6 +44,16 @@ module Result =
         with
         | e -> Error e
 
+    /// <summary>
+    /// Raising an exception from a Result containing an error value, 
+    /// otherwise returning the Ok value
+    /// </summary>
+    /// <param name="result">Result from which the error should be thrown as exception</param>
+    let throw result = 
+        match result with
+        | Ok value  -> value
+        | Error exn -> raise exn
+
     module Asnyc =
 
         /// <summary>
