@@ -1,6 +1,13 @@
 namespace FSharpRailway
 
 module Result =
+    /// <summary>
+    /// Bind operator for composing functions returning Result values (Railway Oriented Programming).
+    /// </summary>
+    /// <param name="binder">function with one input parameter 'a returning an Result&lt;'b&gt;</param>
+    /// <param name="x">input parameter 'a</param>
+    /// <returns>Result&lt;'b&gt;</returns>
+    let (>>=) x binder = Result.bind binder x
 
     /// <summary>
     /// Fish operator (Kleisli Category) for composing functions returning Result values (Railway Oriented Programming).
@@ -9,10 +16,7 @@ module Result =
     /// <param name="f2">function with one input parameter 'b returning a Result&lt;'c&gt;</param>
     /// <param name="x">input parameter 'a</param>
     /// <returns>function with one input parameter 'a returning a Result&lt;'c&gt;</returns>
-    let (>=>) f1 f2 x =
-        match f1 x with
-        | Ok s    -> f2 s
-        | Error e -> Error e
+    let (>=>) f1 f2 x = f1 x >>= f2
 
     /// <summary>
     /// Maps the Ok value by  calling function f, leaving the Err value
